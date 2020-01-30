@@ -1,13 +1,13 @@
 {
-  "name": "webdevintro",
+  "name": "vancity-app",
   "version": "1.0.0",
-  "description": "A front-end site introducing non-developers to web development",
+  "description": "Hackathon: Add value for members",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "grunt && node server.js"
   },
-  "author": "Sydney Young",
+  "author": "Sydney Young, Darrel Chaddock, Winona Huang, Leon Jaworsky",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.7.4",
