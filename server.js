@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyparser = require('body-parser')
-const utilities = require('utilities.js')
+const utilities = require(__dirname + '/utilities.js')
 const app = express()
 const port = 8080
 

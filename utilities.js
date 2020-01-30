@@ -1,4 +1,4 @@
-const creds = require('creds.js')
+const creds = require(__dirname + '/creds.js')
 const mongodb = require('mongodb').MongoClient;
 const mongoLocation = `mongodb+srv://${creds.mongo.user}:${creds.mongo.password}@${creds.mongo.cluser}-xreps.mongodb.net/test?retryWrites=true&w=majority`;
 
