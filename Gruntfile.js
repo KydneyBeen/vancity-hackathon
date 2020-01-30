@@ -5,6 +5,8 @@ module.exports = function (grunt) {
     copy: {
       "front-end/public/js/react.min.js": "node_modules/react/umd/react.production.min.js",
       "front-end/public/js/react-dom.min.js": "node_modules/react-dom/umd/react-dom.production.min.js",
+      "front-end/public/js/react-router.min.js": "node_modules/react-router/umd/react-router.min.js",
+      "front-end/public/js/react-router-dom.min.js": "node_modules/react-router-dom/umd/react-router-dom.min.js",
       "front-end/public/index.html": "front-end/src/views/index.html",
       "front-end/public/favicon.ico": "front-end/src/resources/favicon.ico"
     },

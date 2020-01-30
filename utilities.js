@@ -1,10 +1,13 @@
 const creds = require(__dirname + '/creds.js')
 const mongodb = require('mongodb').MongoClient;
-const mongoLocation = `mongodb+srv://${creds.mongo.user}:${creds.mongo.password}@${creds.mongo.cluser}-xreps.mongodb.net/test?retryWrites=true&w=majority`;
+const ObjectId = require('mongodb').ObjectId;
+const mongoLocation = `mongodb+srv://${creds.mongo.user}:${creds.mongo.password}@${creds.mongo.cluster}.mongodb.net/test?retryWrites=true&w=majority`;
 
 function mongoquery (operation, dataset, params, callback) {
-  let datasets = ['users', 'profiles']
-  let operations = ['create', 'readone', 'readmany', 'update']
+  // let datasets = ['users', 'coll']
+  let datasets = ['coll']
+  // let operations = ['create', 'readone', 'readmany', 'update']
+  let operations = ['readone', 'readmany', 'update']
   if (datasets.indexOf(dataset) === -1) {
     callback("invalid dataset")
   }
@@ -14,7 +17,7 @@ function mongoquery (operation, dataset, params, callback) {
   mongodb.connect(mongoLocation, function (err, client){
     if (err) {
       console.log(err)
-      response = "Error: " + err
+      response = "Connect Error: " + err
     }
     else {
       let db = client.db('db')
@@ -34,19 +37,23 @@ function mongoquery (operation, dataset, params, callback) {
         break
         case 'readmany':
           let many = []
-          collection.find("filter").forEach((document) => {
-            many.push(document["dataIwant"])
+          collection.find().forEach((document) => {
+            many.push(document)
           })
+          callback(many)
         break
         case 'readone':
-          collection.findOne("filter", (document) => {
+          if (!params.id) {
+            callback("Error: requires id parameter")
+          }
+          collection.findOne(ObjectId(params.id), (err, document) => {
             callback(document)
           })
         break;
       }
     }
+    client.close();
   })
-  client.close();
 }
 
 module.exports = mongoquery

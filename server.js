@@ -4,15 +4,19 @@ const utilities = require(__dirname + '/utilities.js')
 const app = express()
 const port = 8080
 
-app.use(bodyparser.text([]))
+// app.use(bodyparser.text([]))
+app.use(bodyparser.json())
 
 app.post('/data', (req, res) => {
-  let operation = req.body.operation
-  let dataset = req.body.dataset
-  let params = req.body.params
-  utilities.mongoquery(operation, dataset, params, (fromMongo) => {
-    res.send(fromMongo)
+  let {operation, dataset, params} = req.body
+  utilities(operation, dataset, params, (fromMongo) => {
+    res.send(JSON.stringify(fromMongo))
   })
+})
+
+app.get('/', (req, res, next) => {
+  req.path = '/index.html'
+  next()
 })
 
 app.use(express.static(__dirname + '/front-end/public/'))
